@@ -1,0 +1,93 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1783451190000,
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson",
+    "title": "USGS Significant Week (trimmed fixture)",
+    "status": 200,
+    "api": "2.4.0",
+    "count": 2
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.8,
+        "place": "2 km E of Oak Harbor, Washington",
+        "time": 1782974147600,
+        "updated": 1783393416310,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/uw714040221",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/uw714040221.geojson",
+        "felt": 2026,
+        "cdi": 3.8,
+        "mmi": 3.322,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 602,
+        "net": "uw",
+        "code": "714040221",
+        "ids": ",uw714040221,us6000t9kz,",
+        "sources": ",uw,us,",
+        "types": ",dyfi,moment-tensor,origin,phase-data,shakemap,",
+        "nst": 124,
+        "dmin": 0.01781,
+        "rms": 0.17,
+        "gap": 15,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.8 - 2 km E of Oak Harbor, Washington"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6065,
+          48.2888333333333,
+          25.38
+        ]
+      },
+      "id": "uw714040221"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 6.1,
+        "place": "265 km SSE of Dunhuang, China",
+        "time": 1782863094830,
+        "updated": 1783036494723,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000t9bg",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us6000t9bg.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 6.493,
+        "alert": "yellow",
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 850,
+        "net": "us",
+        "code": "6000t9bg",
+        "ids": ",us6000t9bg,",
+        "sources": ",us,",
+        "types": ",ground-failure,losspager,origin,phase-data,shakemap,",
+        "nst": 81,
+        "dmin": 6.961,
+        "rms": 0.49,
+        "gap": 35,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 6.1 - 265 km SSE of Dunhuang, China"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          95.3273,
+          37.8295,
+          10
+        ]
+      },
+      "id": "us6000t9bg"
+    }
+  ]
+}
