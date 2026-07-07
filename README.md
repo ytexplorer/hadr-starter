@@ -31,3 +31,30 @@ How it does any of that is not specified anywhere in this repository. That is th
 4. Install OpenCode and sign in with your Go key
 
 Fill in `CLAUDE.md` before your first prompt.
+
+## Run Slice 1 locally
+
+Slice 1 (USGS → contract → map/list/detail) runs entirely on your machine — no deploy
+required. Two terminals:
+
+```bash
+# Terminal 1 — pipeline: serves the contract route on http://localhost:8000/api/contract
+cd pipeline
+uv run python serve_local.py
+```
+
+```bash
+# Terminal 2 — front end: dashboard on http://localhost:3000
+cd web
+pnpm dev
+```
+
+The front end reads the contract URL from `web/.env.local` (gitignored — create it
+yourself, it is not committed):
+
+```
+NEXT_PUBLIC_CONTRACT_URL=http://localhost:8000/api/contract
+```
+
+With both running, `http://localhost:3000` renders live USGS earthquake markers on the
+map and a synced event list — no API key needed for this slice.
