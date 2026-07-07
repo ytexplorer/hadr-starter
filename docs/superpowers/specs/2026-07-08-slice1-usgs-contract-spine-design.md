@@ -237,13 +237,16 @@ Per `CLAUDE.md`: test external behaviour at the highest seam; mock only network 
 
 ## 9. Deviations to log (`implementation-notes.md`, per CLAUDE.md policy)
 
-All three are notes, not new ADRs (no architecture decision changes):
+These are notes, not new ADRs (no architecture decision changes):
 - (a) `meta.feeds` health added ahead of the gate/analytics slices (forward-compat seam).
 - (b) Below-threshold events carried in the contract before the "show all" filter exists
   (forward-compat seam).
 - (c) Issue #3's DoD says "hosted"; by explicit decision the live Vercel deploy is a
   fast-follow and Slice 1's DoD is local e2e + green tests (§2.3, §8). Narrows the issue's
   wording, not the architecture (ADR 0006 still stands).
+- (d) Markers carry no hazard glyph (spec §7 lists `icon = hazard`); with a single hazard
+  type (EQ) the icon conveys nothing, so it is deferred until a second hazard exists —
+  forward-compat narrowing, not an ADR change.
 
 ## 10. Tunable knobs / open items carried into implementation
 - Severity band thresholds (§3.3) — tune against real `all_day` volume during the slice.
