@@ -16,6 +16,10 @@ from pipeline.severity import is_major, severity_level
         (3.0, 300, None, "moderate"),    # sig >= 300
         (3.2, 158, None, "minor"),       # below all
         (2.4, None, None, "minor"),      # null sig treated as 0
+        (7.0, 100, None, "severe"),      # mag exactly 7.0 -> severe
+        (6.0, 100, None, "serious"),     # mag exactly 6.0 -> serious
+        (5.0, 600, None, "serious"),     # sig exactly 600 -> serious
+        (4.0, 100, "green", "minor"),    # green alert falls through band checks -> minor
     ],
 )
 def test_severity_bands(mag, sig, alert, level):

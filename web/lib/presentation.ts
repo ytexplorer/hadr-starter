@@ -3,7 +3,7 @@ import type { Contract, CrisisEvent, Severity } from "./contract.types";
 const COLORS: Record<Severity["level"], string> = {
   severe: "#dc2626",
   serious: "#ea580c",
-  moderate: "#d97706",
+  moderate: "#ca8a04",
   minor: "#6b7280",
 };
 

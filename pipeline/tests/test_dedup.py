@@ -22,6 +22,15 @@ def test_collapses_same_id_keeping_higher_updated():
     assert result[0].mag == 5.4  # the newer record won
 
 
+def test_newer_wins_regardless_of_input_order():
+    old = _q("shared", updated_min=1, mag=5.0)
+    new = _q("shared", updated_min=9, mag=5.4)
+    # newer record placed FIRST — must still win
+    result = union_by_id([new, old])
+    assert len(result) == 1
+    assert result[0].mag == 5.4
+
+
 def test_distinct_ids_all_survive():
     result = union_by_id([_q("a", 1), _q("b", 1)])
     assert {q.source_id for q in result} == {"a", "b"}
