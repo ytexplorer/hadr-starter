@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at": "2026-07-08T12:00:00Z",
+  "meta": {
+    "feeds": [
+      { "source": "usgs", "window": "all_day", "status": "ok", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 1 },
+      { "source": "usgs", "window": "significant_week", "status": "ok", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 0 }
+    ]
+  },
+  "events": [
+    {
+      "id": "usgs:us6000quiet",
+      "hazard": "EQ",
+      "title": "M 2.4 - 3 km E of Calmborough",
+      "place": "3 km E of Calmborough",
+      "time": "2026-07-08T11:45:00Z",
+      "geometry": { "lat": 61.2, "lon": -149.9, "depth_km": 20.0 },
+      "magnitude": 2.4,
+      "severity": { "level": "minor", "inputs": { "mag": 2.4, "sig": 89, "alert": null } },
+      "major": false,
+      "provisional": false,
+      "sources": [ { "feed": "usgs", "id": "us6000quiet", "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000quiet" } ]
+    }
+  ]
+}
