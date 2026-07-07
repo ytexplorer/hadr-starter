@@ -2,7 +2,7 @@
 name = "pipeline"
 version = "0.1.0"
 description = "HADR pipeline — USGS ingest to contract v1"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 dependencies = ["httpx>=0.27"]
 
 [tool.uv]
@@ -17,6 +17,16 @@ line-length = 100
 [tool.mypy]
 python_version = "3.12"
 strict = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_any_generics = false
+warn_return_any = false
+
+[[tool.mypy.overrides]]
+module = ["jsonschema", "jsonschema.*"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
