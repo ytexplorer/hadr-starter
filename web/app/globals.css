@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.dashboard { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; height: 80vh; }
+.map-pane { height: 100%; min-height: 24rem; }
+.side-pane { overflow-y: auto; }
+.badge { margin-left: 0.5rem; font-size: 0.75rem; border: 1px solid currentColor; border-radius: 0.25rem; padding: 0 0.25rem; }
