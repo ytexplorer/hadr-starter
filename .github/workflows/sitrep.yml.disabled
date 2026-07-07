@@ -18,7 +18,7 @@ jobs:
   sitrep:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # TODO 1 — the deterministic check.
       # Call your change-detection script from scripts/. It must exit in a way
