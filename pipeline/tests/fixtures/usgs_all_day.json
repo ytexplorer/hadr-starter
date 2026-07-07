@@ -1,0 +1,133 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1783451198000,
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson",
+    "title": "USGS All Day (trimmed fixture)",
+    "status": 200,
+    "api": "2.4.0",
+    "count": 217
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 7.2,
+        "place": "296 km SSE of Ushuaia, Argentina",
+        "time": 1783387605626,
+        "updated": 1783396352318,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000takd",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us6000takd.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": 3.527,
+        "alert": "red",
+        "status": "automatic",
+        "tsunami": 0,
+        "sig": 1400,
+        "net": "us",
+        "code": "6000takd",
+        "ids": ",us6000takd,",
+        "sources": ",us,",
+        "types": ",losspager,moment-tensor,origin,phase-data,shakemap,",
+        "nst": 131,
+        "dmin": 4.776,
+        "rms": 0.98,
+        "gap": 65,
+        "magType": "mww",
+        "type": "earthquake",
+        "title": "M 7.2 - 296 km SSE of Ushuaia, Argentina"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -66.7593,
+          -57.3319,
+          10
+        ]
+      },
+      "id": "us6000takd"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 1.49,
+        "place": "18 km WSW of Johannesburg, CA",
+        "time": 1783450791450,
+        "updated": 1783451002623,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci41288735",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ci41288735.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "automatic",
+        "tsunami": 0,
+        "sig": 34,
+        "net": "ci",
+        "code": "41288735",
+        "ids": ",ci41288735,",
+        "sources": ",ci,",
+        "types": ",nearby-cities,origin,phase-data,scitech-link,",
+        "nst": 44,
+        "dmin": 0.04148,
+        "rms": 0.17,
+        "gap": 60,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 1.5 - 18 km WSW of Johannesburg, CA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.807,
+          35.2941666666667,
+          7.34
+        ]
+      },
+      "id": "ci41288735"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 3.8,
+        "place": "2 km E of Oak Harbor, Washington",
+        "time": 1782974147600,
+        "updated": 1783397016310,
+        "tz": null,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/uw714040221",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/uw714040221.geojson",
+        "felt": 2026,
+        "cdi": 3.8,
+        "mmi": 3.322,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 602,
+        "net": "uw",
+        "code": "714040221",
+        "ids": ",uw714040221,us6000t9kz,",
+        "sources": ",uw,us,",
+        "types": ",dyfi,moment-tensor,origin,phase-data,shakemap,",
+        "nst": 124,
+        "dmin": 0.01781,
+        "rms": 0.17,
+        "gap": 15,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.8 - 2 km E of Oak Harbor, Washington"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.6065,
+          48.2888333333333,
+          25.38
+        ]
+      },
+      "id": "uw714040221"
+    }
+  ]
+}

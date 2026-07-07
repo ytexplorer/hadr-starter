@@ -1,16 +1,37 @@
-# Generated reports — the morning routine rebuilds these; do not commit churn.
-reports/
-*.sitrep.html
-
-# dashboard.html is the exception: it is the product, and it is committed.
-!dashboard.html
-
 # Secrets stay out of the repo and out of the agent's context.
+# (The server-side embedding key lives here in dev; viewers' BYOK LLM keys live
+#  in the browser, never in the repo. See CLAUDE.md.)
 .env
 .env.*
+!.env.example
 
-# Language debris — extend for whichever toolchain you pick in CLAUDE.md.
+# ── Python pipeline — uv / ruff / mypy / pytest (ADR 0006) ───────────────────
 __pycache__/
+*.py[cod]
 .venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Next.js front end — pnpm / Next / Vitest (ADR 0006) ──────────────────────
 node_modules/
+.next/
+out/
+build/
+coverage/
+next-env.d.ts
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Vercel ───────────────────────────────────────────────────────────────────
+.vercel/
+
+# ── OS / editor cruft ────────────────────────────────────────────────────────
 .DS_Store
+Thumbs.db
+.superpowers/
