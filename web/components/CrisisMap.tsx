@@ -1,10 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CircleMarker, MapContainer, TileLayer, Tooltip } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Tooltip } from "react-leaflet";
+import { divIcon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { CrisisEvent } from "@/lib/contract.types";
 import { markerRadius, severityColor } from "@/lib/presentation";
+
+// SSR-safe HTML badge: colour = level, size = markerRadius(score), 2-letter hazard glyph,
+// ring when selected. All styling inline so no image asset or stylesheet is required.
+function markerBadge(e: CrisisEvent, selected: boolean, size: number): string {
+  const color = severityColor(e.severity.level);
+  const cls = selected ? "crisis-marker crisis-marker--selected" : "crisis-marker";
+  const ring = selected ? `box-shadow:0 0 0 2px #ffffff,0 0 0 5px ${color};` : "";
+  return `<div class="${cls}" data-color="${color}" data-size="${size}" style="width:${size}px;height:${size}px;line-height:${size}px;border-radius:50%;background:${color};color:#ffffff;font-size:${Math.max(8, Math.round(size * 0.5))}px;font-weight:700;text-align:center;border:1px solid #ffffff;${ring}">${e.hazard}</div>`;
+}
 
 export function CrisisMap({
   events,
@@ -28,17 +38,26 @@ export function CrisisMap({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"
       />
-      {events.map((e) => (
-        <CircleMarker
-          key={e.id}
-          center={[e.geometry.lat, e.geometry.lon]}
-          radius={markerRadius(e.magnitude)}
-          pathOptions={{ color: severityColor(e.severity.level), weight: e.id === selectedId ? 4 : 1 }}
-          eventHandlers={{ click: () => onSelect(e.id) }}
-        >
-          <Tooltip>{e.title}</Tooltip>
-        </CircleMarker>
-      ))}
+      {events.map((e) => {
+        const selected = e.id === selectedId;
+        const size = markerRadius(e.severity.score);
+        const icon = divIcon({
+          html: markerBadge(e, selected, size),
+          className: "crisis-marker-icon",
+          iconSize: [size, size],
+          iconAnchor: [size / 2, size / 2],
+        });
+        return (
+          <Marker
+            key={e.id}
+            position={[e.geometry.lat, e.geometry.lon]}
+            icon={icon}
+            eventHandlers={{ click: () => onSelect(e.id) }}
+          >
+            <Tooltip>{e.title}</Tooltip>
+          </Marker>
+        );
+      })}
     </MapContainer>
   );
 }
