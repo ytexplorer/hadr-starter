@@ -19,7 +19,9 @@ def event_from_merged(m: MergedEvent, now: datetime) -> dict[str, Any]:
     e = m.event
     inputs = {"mag": e.mag, "sig": e.sig, "alert": e.alert, "alert_score": e.alert_score}
     boost = compute_boost(e.lat, e.lon)
-    score = base_signal(e.hazard, inputs) + boost["applied"]
+    # Round at emit: the contract is the shared artefact (ADR 0006) and must carry tidy 3-dp
+    # scores, matching boost.applied/distance_km, not full-precision float noise.
+    score = round(base_signal(e.hazard, inputs) + boost["applied"], 3)
     primary = m.sources[0]
     return {
         "id": f"{primary.feed}:{primary.id}",

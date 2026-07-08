@@ -2,6 +2,7 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+import pytest
 from jsonschema import Draft202012Validator
 
 from pipeline.build import FeedFetch, build_contract
@@ -71,7 +72,19 @@ def test_near_city_outscores_equal_magnitude_mid_ocean_and_emits_boost_audit():
     assert set(boost) == {"nearest_place", "population", "distance_km", "applied"}
     assert boost["applied"] > 0.0
     base = base_signal("EQ", near["severity"]["inputs"])
-    assert near["severity"]["score"] == base + boost["applied"]  # score = base + applied
+    # score = base + applied, up to the 3-dp emit rounding (see test_scores_emitted_rounded_to_3dp)
+    assert near["severity"]["score"] == pytest.approx(base + boost["applied"], abs=1e-3)
+
+
+def test_scores_emitted_rounded_to_3dp():
+    # The contract is the shared artefact (ADR 0006); it must carry tidy 3-dp scores, not
+    # full-precision float noise like 66.54545454545455 for a mag-arm-dominated EQ.
+    contract = build_contract(
+        [_fetch("usgs", "all_day", payload=_load("usgs_all_day.json"))], {}, NOW,
+    )
+    for e in contract["events"]:
+        score = e["severity"]["score"]
+        assert score == round(score, 3)
 
 
 def test_multi_hazard_null_magnitude_event_validates():
