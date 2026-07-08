@@ -6,7 +6,7 @@ from typing import Any
 from pipeline.models import NormalizedQuake
 from pipeline.severity import is_major, severity_level
 
-SCHEMA_VERSION = "1.0.0"
+SCHEMA_VERSION = "2.0.0"
 
 
 def to_iso(dt: datetime) -> str:
