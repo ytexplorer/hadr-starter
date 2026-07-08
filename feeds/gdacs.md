@@ -51,6 +51,21 @@ RSS alternative: `https://www.gdacs.org/xml/rss.xml`. Per-event detail hangs off
 }
 ```
 
+## Detail feed — population-exposure fields (per hazard)
+
+`geteventdata?eventtype=<T>&eventid=<ID>` is the ONLY grounded source of an exposed-population
+figure (the EVENTS4APP list carries none — corrects the truncated sample above). Figures are
+carried verbatim, never derived (ADR 0007). Pinned from captured fixtures in
+`pipeline/tests/fixtures/gdacs_detail_<hazard>.json`.
+
+| Hazard | Exposure field (under `properties`)        | Notes                                  |
+|--------|--------------------------------------------|----------------------------------------|
+| EQ     | `earthquakedetails.rapidpop` (+ `rapidpopdescription`) | API-verified; MMI-band exposure |
+| TC     | none published — confirmed absent → null + reason | `gdacs_detail_tc.json`: `severitydata` holds max wind speed (`severity`/`severitytext`/`severityunit`), not a population; `affectedcountries` is country names only, `images.populationmap` is a PNG URL. Removed from `_EXPOSURE_FIELDS`. |
+| FL     | none published — confirmed absent → null + reason | `gdacs_detail_fl.json`: `severitydata` holds flood magnitude, not a population; `impacts`/`additionalinfos` empty. Removed from `_EXPOSURE_FIELDS`. |
+| VO     | none published — detail not captured (no active volcano in the list feed this slice) → null + reason | Left out of `_EXPOSURE_FIELDS` (no unverified path, ADR 0007); revisit when a VO detail can be captured. |
+| DR     | — (GDACS publishes no per-event count)     | Ships `null` + documented reason; not present in `_EXPOSURE_FIELDS`. No active drought in the list feed this slice to capture. |
+
 ## Open questions
 
 1. Every event carries `alertlevel`, `alertscore`, `episodealertlevel` and

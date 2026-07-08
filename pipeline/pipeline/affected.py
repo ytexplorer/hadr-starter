@@ -2,21 +2,18 @@
 
 from typing import Any
 
-# Per-hazard population-EXPOSURE fields inside the GDACS `geteventdata` properties, as
-# (detail_object_key, population_field, description_field). EQ is API-verified
-# (earthquakedetails.rapidpop + rapidpopdescription). The non-EQ hazards use GDACS's
-# `severitydata` block (population + severitytext) — the EXPECTED path, CONFIRMED or corrected
-# per hazard against captured detail fixtures in Step 8-9 (feeds/gdacs.md records the final map).
-# If a detail lacks its pinned field, extract_exposure returns (None, reason): we carry the
-# figure VERBATIM and never fabricate or derive one (ADR 0007). Any hazard we cannot verify is
-# removed from this map (ships null + reason) rather than shipping an unverified extraction path.
+# Per-hazard population-EXPOSURE field inside the GDACS `geteventdata` properties, as
+# (detail_object_key, population_field, description_field). Only EQ is retained: it is
+# API-verified — earthquakedetails.rapidpop (+ rapidpopdescription) is a genuine
+# exposed-population count. The non-EQ hazards were checked against captured detail fixtures
+# (Step 8): TC and FL carry NO exposed-population count (their `severitydata` block holds the
+# physical magnitude — max wind speed / flood magnitude — not a population); VO and DR had no
+# active event in the list feed this slice and stay unverified. All non-EQ hazards are therefore
+# omitted from this map and fall through to (None, reason): we carry the figure VERBATIM, never
+# fabricate or derive one, and ship no unverified extraction path (ADR 0007). feeds/gdacs.md
+# records the per-hazard field map.
 _EXPOSURE_FIELDS: dict[str, tuple[str, str, str]] = {
     "EQ": ("earthquakedetails", "rapidpop", "rapidpopdescription"),
-    "TC": ("severitydata", "population", "severitytext"),
-    "FL": ("severitydata", "population", "severitytext"),
-    "VO": ("severitydata", "population", "severitytext"),
-    # DR (drought) is intentionally absent: GDACS publishes no per-event population count for
-    # droughts, so DR always ships (None, reason). Confirmed by the Step 8 capture.
 }
 
 _NO_FIGURE_REASON: dict[str, str] = {
