@@ -32,7 +32,9 @@ export function EventDetail({ event }: { event: CrisisEvent | null }) {
         <dt>Population exposed</dt>
         <dd>
           <span>{formatAffected(event.affected)}</span>
-          <small className="muted">{event.affected.basis}</small>
+          {event.affected.estimate !== null && (
+            <small className="muted">{event.affected.basis}</small>
+          )}
         </dd>
       </dl>
       <section aria-label="Why this ranks here">

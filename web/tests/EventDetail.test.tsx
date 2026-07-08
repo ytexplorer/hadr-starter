@@ -79,4 +79,11 @@ describe("EventDetail", () => {
     render(<EventDetail event={severe} />);
     expect(screen.getByText(/not estimated/i)).toBeInTheDocument();
   });
+
+  it("does not repeat the basis line for a null-estimate event", () => {
+    // formatAffected already embeds the basis ("Not estimated — {basis}"); the separate
+    // <small> must not render the identical sentence back-to-back for null estimates.
+    render(<EventDetail event={severe} />);
+    expect(screen.queryByText(severe.affected.basis)).not.toBeInTheDocument();
+  });
 });
