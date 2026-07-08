@@ -39,3 +39,65 @@ Kept by the agent, reviewed by you. One entry per working block.
   `web/components/CrisisMap.tsx` (`react-hooks/set-state-in-effect`, needed because the map
   must mount client-side only) and the loosely-typed mock props in the Vitest test mocks for
   `react-leaflet`/`next/dynamic` (`@typescript-eslint/no-explicit-any`).
+
+### Slice 2 (Tasks 1–18)
+
+- **ADR 0003 boost gap CLOSED (bookkeeping — no ADR change).** The newsworthiness
+  boost was accepted "from v1" in ADR 0003 but was **absent and unlogged** through
+  Slice 1. Slice 2 lands it: `severity.score = base_signal + boost.applied` and an
+  auditable `severity.boost` object (`pipeline/pipeline/boost.py`,
+  `MAX_BOOST/CAPITAL_BONUS/BOOST_CAP/BOOST_RADIUS_KM`). ADR 0003 is now *honored*,
+  not changed — no superseding ADR needed. (Spec §10.1, §7.2; ADR 0003.)
+- **Deviation (d) hazard glyph CLOSED.** Slice 1 (d) deferred the map glyph "until a
+  second hazard type is ingested." GDACS (EQ/TC/FL/VO/DR) makes that true, so the
+  2-letter hazard glyph on `CrisisMap` markers + the new `MapLegend` now ship.
+  (Spec §10.2, §8.)
+- **New — GDACS detail fetch for `affected`.** Departs from Slice 1's list-only
+  ingest: the EVENTS4APP list carries no population, so `pipeline/api/contract.py`
+  makes bounded per-event `geteventdata` GETs (Orange/Red only — the sole events that
+  can clear `major` and be displayed) to source the verbatim exposure figure via
+  `affected.py:extract_exposure`. Per-hazard *physical* metrics (wind/flood-area/VEI)
+  stay deferred. Grounded, never computed. (Spec §10.3, §7.5; ADR 0007.)
+- **New — `severity.inputs` reshaped under the 2.0.0 bump.** Gained `alert_score`;
+  `mag`/`sig`/`alert` are now all nullable and always-present (keys
+  `{"mag","sig","alert","alert_score"}`). EQ identity is preserved **semantically**
+  (level, `major`, and the values of mag/sig/alert), not as literal byte-identity of
+  the v1 object — legitimate under a breaking bump; locked decision 3 freezes only the
+  4-value `level` band. (Spec §10.4, §4.1.)
+- **New — top-level `magnitude` is now `number|null`, always present** (null for
+  TC/FL/VO/DR) rather than the v1 EQ-only required number. Uniform with the
+  always-present `boost`/`affected`; the front end guards null and sizes markers off
+  `severity.score` (`markerRadius`). (Spec §10.5, §4.1.)
+- **Contained tension logged — v1 "green EQ → major" quirk preserved.** EQ
+  `base_signal` is constructed so `base_signal ≥ 60 ⇔ old is_major`, which keeps the
+  v1 quirk that a green-alert EQ can be `major`. This conflicts with ADR 0003's
+  "hide green" applied to GDACS-sourced green colours on the non-EQ path (`colour_base`
+  green = 45 < `MAJOR_CUTOFF` 60). **If kept long-term this needs a superseding ADR;**
+  Slice 2 only logs it and revisits under ADR 0003 tuning. (Spec §10.6, §7.3;
+  ADR 0003.)
+- **New — canonical `id` can churn `gdacs:… → usgs:…`.** A GDACS-only event that later
+  gains a USGS match flips its canonical `id` to the USGS one
+  (`merge.py:FEED_PRIORITY = ("usgs","gdacs")`, present-wins). Acceptable this slice
+  because revisions / history / id-stability across runs are out of scope. (Spec
+  §10.7, §7.4.)
+- **`feeds/gdacs.md` updated.** Documented the `geteventdata` detail feed's per-hazard
+  exposure fields and corrected the truncated sample's implication that population
+  lives in the EVENTS4APP list feed (it does not). (Spec §10.8, §7.5.)
+- **v1 fixture retirement extended.** Retiring `contract/fixtures/contract.v1.*.json`
+  (Task 17) orphaned the pipeline v1 fixture-validation tests in
+  `pipeline/tests/test_contract_schema.py` (no task covered that file). The
+  fixture-dependent tests were removed at merge time (commit `ca72695`) so the merged
+  tree stays green; `contract.v1.schema.json` remains frozen in-repo with its
+  standalone schema-validity test intact.
+- **ADR 0005 layer-2 dedup deferred.** Slice 2 ships only the deterministic layer-1
+  dedup; the semantic-embedding layer-2 remains deferred (no server-side embedding key
+  introduced). Logged per the deviations policy. (ADR 0005.)
+- **`severity.py` type widening (Task 5).** The plan's verbatim code fails mypy strict
+  on the installed mypy (2.1.0) at the two GDACS `inputs.get("alert")` lookups;
+  `_COLOUR_BASE`/`_COLOUR_LEVEL` key types were widened `str → str | None` (mirroring
+  `_EQ_ALERT_ARM`), a behavior-preserving change disclosed in the Task 5 report.
+- **ruff format debt (Task 11 observation).** `ruff format --check` flags ~11 pipeline
+  files including plan-verbatim code (compact grouped-argument style with magic
+  trailing commas, pre-existing repo-wide). Substantive gates (`ruff check` lint, mypy,
+  tests) are clean; a dedicated repo-wide formatting pass is deferred rather than
+  reformatting plan-verbatim files piecemeal.
