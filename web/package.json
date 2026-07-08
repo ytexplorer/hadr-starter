@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "gen:contract-types": "json2ts ../contract/schema/contract.v1.schema.json -o lib/contract.types.ts"
+    "gen:contract-types": "json2ts ../contract/schema/contract.v2.schema.json -o lib/contract.types.ts"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
