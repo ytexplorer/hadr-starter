@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 import pytest
 
+from pipeline.feeds import PARSERS
 from pipeline.feeds.gdacs import parse_gdacs
 
 
@@ -95,3 +96,13 @@ def test_skips_features_missing_eventid_coords_or_unparseable_date():
 def test_empty_or_missing_features_yield_nothing():
     assert parse_gdacs({"features": []}) == []
     assert parse_gdacs({}) == []
+
+
+def test_parsers_registry_exposes_both_feeds():
+    assert set(PARSERS) == {"usgs", "gdacs"}
+    assert PARSERS["gdacs"] is parse_gdacs
+
+
+def test_registry_dispatch_parses_gdacs_feature():
+    events = PARSERS["gdacs"]({"features": [_feature()]})
+    assert len(events) == 1 and events[0].feed == "gdacs"
