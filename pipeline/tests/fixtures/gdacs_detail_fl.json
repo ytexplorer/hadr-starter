@@ -1,0 +1,112 @@
+{
+  "type": "Feature",
+  "bbox": [
+    170.9698,
+    -45.1,
+    170.9698,
+    -45.1
+  ],
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      170.9698,
+      -45.1
+    ]
+  },
+  "properties": {
+    "eventtype": "FL",
+    "eventid": 1104006,
+    "episodeid": 1,
+    "eventname": "",
+    "glide": "",
+    "name": "Flood in New Zealand",
+    "description": "Flood in New Zealand",
+    "htmldescription": "Green Flood in New Zealand from: 05 Jul 2026 01 to: 07 Jul 2026 01.",
+    "icon": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+    "iconoverall": null,
+    "url": {
+      "geometry": "https://www.gdacs.org/gdacsapi/api/polygons/getgeometry?eventtype=FL&eventid=1104006&episodeid=1",
+      "report": "https://www.gdacs.org/report.aspx?eventid=1104006&episodeid=1&eventtype=FL",
+      "media": "https://www.gdacs.org/gdacsapi/api/emm/getemmnewsbykey?eventtype=FL&eventid=1104006",
+      "eventnews": "https://www.gdacs.org/gdacsapi/api/news/getnewsbygdacskey?eventtype=FL&eventid=1104006"
+    },
+    "alertlevel": "Green",
+    "alertscore": 1,
+    "episodealertlevel": "Green",
+    "episodealertscore": 0.5,
+    "istemporary": "false",
+    "iscurrent": "true",
+    "country": "New Zealand",
+    "fromdate": "2026-07-05T01:00:00",
+    "todate": "2026-07-07T01:00:00",
+    "datemodified": "2026-07-07T06:08:23",
+    "iso3": "NZL",
+    "source": "GLOFAS",
+    "sourceid": "f78472e3-fd82-413a-99cf-7a709289d8d3",
+    "polygonlabel": "Centroid",
+    "Class": "Point_Centroid",
+    "affectedcountries": [
+      {
+        "iso2": "NZ",
+        "iso3": "NZL",
+        "countryname": "New Zealand"
+      }
+    ],
+    "severitydata": {
+      "severity": 0.0,
+      "severitytext": "Magnitude 0 ",
+      "severityunit": ""
+    },
+    "episodes": [
+      {
+        "details": "https://www.gdacs.org/gdacsapi/api/events/getepisodedata?eventtype=FL&eventid=1104006&episodeid=1"
+      }
+    ],
+    "sendai": [
+      {
+        "latest": true,
+        "sendaitype": "C",
+        "sendainame": "houses damaged",
+        "sendaivalue": "15",
+        "country": "New Zealand",
+        "region": "Oamaru",
+        "dateinsert": null,
+        "description": "15 [buildings] Buildings damaged in Oamaru, New Zealand",
+        "onset_date": "2026-07-05T01:00:00",
+        "expires_date": "2026-07-06T01:00:00",
+        "effective_date": null
+      },
+      {
+        "latest": true,
+        "sendaitype": "B",
+        "sendainame": "displaced",
+        "sendaivalue": "38",
+        "country": "New Zealand",
+        "region": "Oamaru",
+        "dateinsert": null,
+        "description": "38 [people] Evacuated in Oamaru, New Zealand",
+        "onset_date": "2026-07-05T01:00:00",
+        "expires_date": "2026-07-06T01:00:00",
+        "effective_date": null
+      }
+    ],
+    "impacts": [],
+    "images": {
+      "populationmap": "https://www.gdacs.org/contentdata/resources/FL/1104006/dfo2026_1104006/2rest.png",
+      "floodmap_cached": "https://www.gdacs.org/contentdata/resources/FL/1104006/dfo2026_1104006/7rest.png",
+      "thumbnailmap_cached": "https://www.gdacs.org/contentdata/resources/FL/1104006/dfo2026_1104006.png",
+      "rainmap_cached": "https://www.gdacs.org/contentdata/resources/FL/1104006/6rest.png",
+      "overviewmap_cached": "https://www.gdacs.org/contentdata/resources/FL/1104006/flood_overview_1104006.png",
+      "overviewmap": "https://www.gdacs.org/contentdata/resources/FL/1104006/flood_overview_1104006.png",
+      "rainimage": "https://www.gdacs.org/rainimage/2026/07/3B42RT.2026070700.7.7day.tif",
+      "meteoimages": "https://www.gdacs.org/contentdata/resources/FL/1104006/meteo/",
+      "mslpimages": "https://www.gdacs.org/contentdata/img/mslp/",
+      "event_icon_map": "https://www.gdacs.org/images/gdacs_icons/maps/Green/FL.png",
+      "event_icon": "https://www.gdacs.org/images/gdacs_icons/big/Green/FL.png",
+      "thumbnailmap": "https://www.gdacs.org/contentdata/resources/FL/1104006/dfo2026_1104006.png",
+      "npp_icon": "https://www.gdacs.org/images/gdacs_icons/iconmap/Nuclear.png"
+    },
+    "additionalinfos": {},
+    "documents": {}
+  }
+}

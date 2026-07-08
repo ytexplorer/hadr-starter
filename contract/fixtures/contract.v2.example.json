@@ -1,0 +1,98 @@
+{
+  "schema_version": "2.0.0",
+  "generated_at": "2026-07-08T12:00:00Z",
+  "meta": {
+    "feeds": [
+      { "source": "usgs", "window": "all_day", "status": "ok", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 3, "error": null },
+      { "source": "usgs", "window": "significant_week", "status": "ok", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 1, "error": null },
+      { "source": "gdacs", "window": "events4app", "status": "ok", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 2, "error": null }
+    ]
+  },
+  "events": [
+    {
+      "id": "usgs:us6000severe",
+      "hazard": "EQ",
+      "title": "M 7.1 - 40 km W of Testville",
+      "place": "40 km W of Testville",
+      "time": "2026-07-08T09:00:00Z",
+      "geometry": { "lat": -19.1, "lon": -70.9, "depth_km": 34.2 },
+      "magnitude": 7.1,
+      "severity": {
+        "level": "severe",
+        "score": 94.732,
+        "inputs": { "mag": 7.1, "sig": 850, "alert": null, "alert_score": null },
+        "boost": { "nearest_place": "Iquique", "population": 191000, "distance_km": 42.0, "applied": 9.732 }
+      },
+      "major": true,
+      "provisional": true,
+      "sources": [
+        { "feed": "usgs", "id": "us6000severe", "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000severe" }
+      ],
+      "affected": { "estimate": null, "basis": "No GDACS exposure data (USGS-only event)", "source": null }
+    },
+    {
+      "id": "gdacs:1550421",
+      "hazard": "TC",
+      "title": "Tropical Cyclone Mawar",
+      "place": "Guam",
+      "time": "2026-07-07T18:00:00Z",
+      "geometry": { "lat": 13.5, "lon": 144.8, "depth_km": null },
+      "magnitude": null,
+      "severity": {
+        "level": "serious",
+        "score": 90.305,
+        "inputs": { "mag": null, "sig": null, "alert": "orange", "alert_score": 2.0 },
+        "boost": { "nearest_place": "Dededo", "population": 44943, "distance_km": 20.0, "applied": 9.305 }
+      },
+      "major": true,
+      "provisional": false,
+      "sources": [
+        { "feed": "gdacs", "id": "1550421", "url": "https://www.gdacs.org/report.aspx?eventid=1550421&eventtype=TC" }
+      ],
+      "affected": { "estimate": 150000, "basis": "150 thousand people in Category 1 wind zone", "source": "gdacs" }
+    },
+    {
+      "id": "usgs:us6000serious",
+      "hazard": "EQ",
+      "title": "M 6.0 - 12 km S of Sampletown",
+      "place": "12 km S of Sampletown",
+      "time": "2026-07-08T06:30:00Z",
+      "geometry": { "lat": 35.7, "lon": 139.7, "depth_km": 10.0 },
+      "magnitude": 6.0,
+      "severity": {
+        "level": "serious",
+        "score": 89.037,
+        "inputs": { "mag": 6.0, "sig": 640, "alert": "yellow", "alert_score": 1.5 },
+        "boost": { "nearest_place": "Tokyo", "population": 8336599, "distance_km": 12.0, "applied": 19.037 }
+      },
+      "major": true,
+      "provisional": false,
+      "sources": [
+        { "feed": "usgs", "id": "us6000serious", "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000serious" },
+        { "feed": "gdacs", "id": "1500789", "url": "https://www.gdacs.org/report.aspx?eventid=1500789&eventtype=EQ" }
+      ],
+      "affected": { "estimate": 43996, "basis": "40 thousand people in MMI IV or higher", "source": "gdacs" }
+    },
+    {
+      "id": "usgs:us6000minor",
+      "hazard": "EQ",
+      "title": "M 3.2 - 5 km NE of Quietville",
+      "place": "5 km NE of Quietville",
+      "time": "2026-07-08T11:00:00Z",
+      "geometry": { "lat": 51.9, "lon": -176.6, "depth_km": 8.0 },
+      "magnitude": 3.2,
+      "severity": {
+        "level": "minor",
+        "score": 34.909,
+        "inputs": { "mag": 3.2, "sig": 158, "alert": null, "alert_score": null },
+        "boost": { "nearest_place": "Unalaska", "population": 4700, "distance_km": 450.0, "applied": 0.0 }
+      },
+      "major": false,
+      "provisional": false,
+      "sources": [
+        { "feed": "usgs", "id": "us6000minor", "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000minor" }
+      ],
+      "affected": { "estimate": null, "basis": "No GDACS exposure data (USGS-only event)", "source": null }
+    }
+  ]
+}

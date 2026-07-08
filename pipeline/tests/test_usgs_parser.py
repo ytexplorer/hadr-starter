@@ -45,3 +45,25 @@ def test_skips_features_missing_mag_or_coords_or_time():
 def test_empty_feature_collection_yields_nothing():
     assert parse_usgs({"features": []}) == []
     assert parse_usgs({}) == []
+
+
+def test_sets_feed_hazard_and_gdacs_only_fields_none():
+    q = parse_usgs({"features": [_feature(id="us1")]})[0]
+    assert q.feed == "usgs"
+    assert q.hazard == "EQ"
+    # every GDACS-only signal is None for a USGS event
+    assert q.alert_score is None
+    assert q.glide is None
+    assert q.iso3 is None
+    assert q.country is None
+    assert q.affected_population is None
+    assert q.affected_basis is None
+
+
+def test_parses_external_ids_from_comma_delimited_ids_string():
+    # USGS properties.ids is a comma-delimited string with leading/trailing commas
+    populated = parse_usgs({"features": [_feature(id="us1", ids=",us1,us6000t9kz,")]})[0]
+    assert populated.external_ids == frozenset({"us1", "us6000t9kz"})
+    # absent `ids` property -> empty frozenset, never None
+    bare = parse_usgs({"features": [_feature(id="us2")]})[0]
+    assert bare.external_ids == frozenset()

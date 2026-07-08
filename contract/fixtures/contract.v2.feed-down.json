@@ -1,0 +1,12 @@
+{
+  "schema_version": "2.0.0",
+  "generated_at": "2026-07-08T12:00:00Z",
+  "meta": {
+    "feeds": [
+      { "source": "usgs", "window": "all_day", "status": "ok", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 0, "error": null },
+      { "source": "usgs", "window": "significant_week", "status": "ok", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 0, "error": null },
+      { "source": "gdacs", "window": "events4app", "status": "error", "fetched_at": "2026-07-08T12:00:00Z", "event_count": 0, "error": "HTTP 503" }
+    ]
+  },
+  "events": []
+}

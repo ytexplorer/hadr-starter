@@ -51,6 +51,39 @@ RSS alternative: `https://www.gdacs.org/xml/rss.xml`. Per-event detail hangs off
 }
 ```
 
+> **Note — the list feed carries no population / exposure figure.** EVENTS4APP gives
+> only the colour signal (`alertlevel` / `alertscore`). The truncated sample above has
+> no population field, and none exists in the list feed — do not read exposure off it.
+> Any affected-population number comes from the per-event **detail feed** below.
+
+## Detail feed (`geteventdata`) — population exposure
+
+Per-event detail hangs off `properties.url.details`:
+
+    https://www.gdacs.org/gdacsapi/api/events/geteventdata?eventtype=EQ&eventid=1550421
+
+The affected-population estimate is **GDACS's own** and is carried **verbatim** into the
+contract's `affected` block (never recomputed — ADR 0007). Slice 2 captured detail fixtures
+for the hazards active in the list feed this slice (EQ, TC, FL — see
+`pipeline/tests/fixtures/gdacs_detail_<hazard>.json`) and pinned each hazard's exposure field.
+The canonical map lives in `pipeline/pipeline/affected.py` (`_EXPOSURE_FIELDS` /
+`extract_exposure`); reconcile to it if any field string below drifts. A hazard **absent** from
+`_EXPOSURE_FIELDS` has no verified exposure field and ships `affected.estimate: null` with a
+documented reason — never a hard-coded or guessed field (ADR 0007).
+
+| Hazard | Exposure field (under detail `properties`)             | Notes                                  |
+|--------|--------------------------------------------------------|----------------------------------------|
+| EQ     | `earthquakedetails.rapidpop` (+ `rapidpopdescription`) | API-verified; population in an MMI exposure band (e.g. 43996 → "40 thousand in MMI IV"). Only hazard in `_EXPOSURE_FIELDS`. |
+| TC     | none published — confirmed absent → `null` + reason    | `gdacs_detail_tc.json`: `severitydata` holds max wind speed (`severity`/`severitytext`/`severityunit`), not a population; `affectedcountries` is country names only, `images.populationmap` is a PNG URL. Omitted from `_EXPOSURE_FIELDS`. |
+| FL     | none published — confirmed absent → `null` + reason    | `gdacs_detail_fl.json`: `severitydata` holds flood magnitude, not a population; `impacts`/`additionalinfos` empty. Omitted from `_EXPOSURE_FIELDS`. |
+| VO     | none published — detail not captured this slice → `null` + reason | No active volcano in the list feed this slice; left out of `_EXPOSURE_FIELDS` (no unverified path, ADR 0007). Revisit when a VO detail can be captured. |
+| DR     | none published — GDACS publishes no per-event count → `null` + reason | No active drought in the list feed this slice; not present in `_EXPOSURE_FIELDS`. |
+
+Only **Orange/Red** events are detail-fetched (§7.5): they are the only ones that can clear the
+`major` gate and be displayed. Any detail-fetch failure degrades to `affected.estimate: null`
+plus a reason basis — it never blocks the build. Wording is always **"population exposed," never
+"affected / casualties"**: `rapidpop` measures exposure, not impact (ADR 0007).
+
 ## Open questions
 
 1. Every event carries `alertlevel`, `alertscore`, `episodealertlevel` and

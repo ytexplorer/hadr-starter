@@ -1,0 +1,20 @@
+{
+  "type": "Feature",
+  "geometry": { "type": "Point", "coordinates": [142.03, 40.47] },
+  "properties": {
+    "eventtype": "EQ",
+    "eventid": 1550421,
+    "name": "Earthquake in Japan",
+    "alertlevel": "Orange",
+    "alertscore": 1.5,
+    "country": "Japan",
+    "fromdate": "2026-07-06T11:29:36",
+    "datemodified": "2026-07-06T12:09:48",
+    "earthquakedetails": {
+      "magnitude": 6.0,
+      "depth": 35.0,
+      "rapidpop": 43996,
+      "rapidpopdescription": "40 thousand in MMI IV"
+    }
+  }
+}

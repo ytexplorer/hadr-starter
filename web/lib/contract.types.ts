@@ -6,7 +6,7 @@
  */
 
 export interface Contract {
-  schema_version: "1.0.0";
+  schema_version: "2.0.0";
   generated_at: string;
   meta: {
     feeds: FeedHealth[];
@@ -14,21 +14,21 @@ export interface Contract {
   events: CrisisEvent[];
 }
 export interface FeedHealth {
-  source: "usgs";
-  window: "all_day" | "significant_week";
+  source: "usgs" | "gdacs";
+  window: "all_day" | "significant_week" | "events4app";
   status: "ok" | "error";
   fetched_at: string;
   event_count: number;
-  error?: string;
+  error?: string | null;
 }
 export interface CrisisEvent {
   id: string;
-  hazard: "EQ";
+  hazard: "EQ" | "TC" | "FL" | "VO" | "DR";
   title: string;
   place: string;
   time: string;
   geometry: Geometry;
-  magnitude: number;
+  magnitude: number | null;
   severity: Severity;
   major: boolean;
   provisional: boolean;
@@ -36,6 +36,7 @@ export interface CrisisEvent {
    * @minItems 1
    */
   sources: [FeedSource, ...FeedSource[]];
+  affected: Affected;
 }
 export interface Geometry {
   lat: number;
@@ -44,14 +45,29 @@ export interface Geometry {
 }
 export interface Severity {
   level: "minor" | "moderate" | "serious" | "severe";
-  inputs: {
-    mag: number;
-    sig: number | null;
-    alert: "green" | "yellow" | "orange" | "red" | null;
-  };
+  score: number;
+  inputs: SeverityInputs;
+  boost: SeverityBoost;
+}
+export interface SeverityInputs {
+  mag: number | null;
+  sig: number | null;
+  alert: "green" | "yellow" | "orange" | "red" | null;
+  alert_score: number | null;
+}
+export interface SeverityBoost {
+  nearest_place: string | null;
+  population: number | null;
+  distance_km: number | null;
+  applied: number;
 }
 export interface FeedSource {
-  feed: "usgs";
+  feed: "usgs" | "gdacs";
   id: string;
   url: string;
+}
+export interface Affected {
+  estimate: number | null;
+  basis: string;
+  source: "gdacs" | null;
 }
