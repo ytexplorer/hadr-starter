@@ -68,13 +68,26 @@ Kept by the agent, reviewed by you. One entry per working block.
   TC/FL/VO/DR) rather than the v1 EQ-only required number. Uniform with the
   always-present `boost`/`affected`; the front end guards null and sizes markers off
   `severity.score` (`markerRadius`). (Spec §10.5, §4.1.)
-- **Contained tension logged — v1 "green EQ → major" quirk preserved.** EQ
-  `base_signal` is constructed so `base_signal ≥ 60 ⇔ old is_major`, which keeps the
-  v1 quirk that a green-alert EQ can be `major`. This conflicts with ADR 0003's
-  "hide green" applied to GDACS-sourced green colours on the non-EQ path (`colour_base`
-  green = 45 < `MAJOR_CUTOFF` 60). **If kept long-term this needs a superseding ADR;**
-  Slice 2 only logs it and revisits under ADR 0003 tuning. (Spec §10.6, §7.3;
-  ADR 0003.)
+- **Contained tension logged — v1 "green EQ → major" quirk preserved (blast radius
+  corrected by final review).** EQ `base_signal` is constructed so
+  `base_signal ≥ 60 ⇔ old is_major` (`severity.py` `_EQ_ALERT_ARM` maps green→60.0 =
+  `MAJOR_CUTOFF`), which keeps the v1 quirk that a green-alert EQ can be `major`. This
+  conflicts with ADR 0003's "hide green" applied to GDACS-sourced green colours on the
+  non-EQ path (`colour_base` green = 45 < `MAJOR_CUTOFF` 60). **Blast radius (final
+  whole-branch review):** the earlier "a green-alert EQ *can* be major" wording
+  understated it. v1's `alert` was USGS PAGER, which is *null for the vast majority of
+  quakes*, so the quirk rarely fired; but `merge.py` takes `alert` from the GDACS member
+  on merge and GDACS `alertlevel` is *always* present, so in live data effectively
+  **every** GDACS-listed EQ (green included) scores ≥ 60 and clears the `major` gate, and
+  any modest USGS quake (e.g. M4.8, PAGER null → not major in v1) that tier-3-merges with
+  a green GDACS row flips to `major` — diluting the Major default view. `test_eq_regression`
+  cannot catch this (it runs USGS-only feeds). **If kept long-term this needs a superseding
+  ADR;** Slice 2 only logs it. **Scheduled:** the ADR 0003 tuning pass is the first order of
+  business next slice — distinguish alert provenance (keep `_EQ_ALERT_ARM` for genuine PAGER
+  alerts; route GDACS-sourced colour on EQs through `colour_base`, i.e.
+  `max(mag_arm, sig_arm, pager_arm, colour_base_arm)`), quantified against live GDACS data
+  before deciding urgency; if the behaviour is kept deliberately, write the superseding ADR.
+  (Spec §10.6, §7.3; ADR 0003.)
 - **New — canonical `id` can churn `gdacs:… → usgs:…`.** A GDACS-only event that later
   gains a USGS match flips its canonical `id` to the USGS one
   (`merge.py:FEED_PRIORITY = ("usgs","gdacs")`, present-wins). Acceptable this slice
