@@ -1,0 +1,49 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [83.3, 17.7] },
+      "properties": {
+        "eventtype": "TC", "eventid": "1000001", "name": "Tropical Cyclone NILAM",
+        "country": "India", "fromdate": "2026-07-06T00:00:00", "todate": "2026-07-07T00:00:00",
+        "datemodified": "2026-07-07T06:00:00", "alertlevel": "Orange", "alertscore": 2.0,
+        "glide": "TC-2026-000123-IND", "istemporary": "false",
+        "url": { "report": "https://www.gdacs.org/report.aspx?eventid=1000001&eventtype=TC" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [68.4, 27.5] },
+      "properties": {
+        "eventtype": "FL", "eventid": "1000002", "name": "Floods in Pakistan",
+        "country": "Pakistan", "fromdate": "2026-07-04T00:00:00", "todate": "2026-07-07T00:00:00",
+        "datemodified": "2026-07-07T05:00:00", "alertlevel": "Red", "alertscore": 2.5,
+        "glide": "FL-2026-000045-PAK", "istemporary": "false",
+        "url": { "report": "https://www.gdacs.org/report.aspx?eventid=1000002&eventtype=FL" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [155.2, 50.3] },
+      "properties": {
+        "eventtype": "VO", "eventid": "1000003", "name": "Volcano Sarychev Peak",
+        "country": "Russia", "fromdate": "2026-07-05T00:00:00", "todate": "2026-07-07T00:00:00",
+        "datemodified": "2026-07-07T04:00:00", "alertlevel": "Green", "alertscore": 0.5,
+        "glide": "", "istemporary": "false",
+        "url": { "report": "https://www.gdacs.org/report.aspx?eventid=1000003&eventtype=VO" }
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [37.9, 0.5] },
+      "properties": {
+        "eventtype": "DR", "eventid": "1000004", "name": "Drought in the Horn of Africa",
+        "country": "Kenya", "fromdate": "2026-05-01T00:00:00", "todate": "2026-07-07T00:00:00",
+        "datemodified": "2026-07-07T03:00:00", "alertlevel": "Orange", "alertscore": 1.0,
+        "glide": "DR-2026-000009-KEN", "istemporary": "false",
+        "url": { "report": "https://www.gdacs.org/report.aspx?eventid=1000004&eventtype=DR" }
+      }
+    }
+  ]
+}

@@ -1,10 +1,12 @@
-"""Map a normalized quake to a contract event, and time formatting for the contract."""
+"""Map a merged event to a contract v2 event, and time formatting for the contract."""
 
 from datetime import datetime, timezone
 from typing import Any
 
-from pipeline.models import NormalizedQuake
-from pipeline.severity import is_major, severity_level
+from pipeline.affected import affected_block
+from pipeline.boost import compute_boost
+from pipeline.merge import MergedEvent
+from pipeline.severity import base_signal, is_major, level_for
 
 SCHEMA_VERSION = "2.0.0"
 
@@ -13,20 +15,29 @@ def to_iso(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def event_from_quake(q: NormalizedQuake) -> dict[str, Any]:
+def event_from_merged(m: MergedEvent, now: datetime) -> dict[str, Any]:
+    e = m.event
+    inputs = {"mag": e.mag, "sig": e.sig, "alert": e.alert, "alert_score": e.alert_score}
+    boost = compute_boost(e.lat, e.lon)
+    score = base_signal(e.hazard, inputs) + boost["applied"]
+    primary = m.sources[0]
     return {
-        "id": f"usgs:{q.source_id}",
-        "hazard": "EQ",
-        "title": q.title,
-        "place": q.place,
-        "time": to_iso(q.time),
-        "geometry": {"lat": q.lat, "lon": q.lon, "depth_km": q.depth_km},
-        "magnitude": q.mag,
+        "id": f"{primary.feed}:{primary.id}",
+        "hazard": e.hazard,
+        "title": e.title,
+        "place": e.place,
+        "time": to_iso(e.time),
+        "geometry": {"lat": e.lat, "lon": e.lon, "depth_km": e.depth_km},
+        "magnitude": e.mag,
         "severity": {
-            "level": severity_level(q.mag, q.sig, q.alert),
-            "inputs": {"mag": q.mag, "sig": q.sig, "alert": q.alert},
+            "level": level_for(e.hazard, inputs),
+            "score": score,
+            "inputs": inputs,
+            "boost": boost,
         },
-        "major": is_major(q.mag, q.sig, q.alert),
-        "provisional": q.status == "automatic",
-        "sources": [{"feed": "usgs", "id": q.source_id, "url": q.url}],
+        "major": is_major(score),
+        # USGS "automatic" or GDACS istemporary "true" both mean provisional (spec §7.4)
+        "provisional": e.status in ("automatic", "true"),
+        "sources": [{"feed": s.feed, "id": s.id, "url": s.url} for s in m.sources],
+        "affected": affected_block(e.affected_population, e.affected_basis),
     }

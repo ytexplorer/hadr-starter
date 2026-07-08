@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [142.03, 40.47] },
+      "properties": {
+        "eventtype": "EQ",
+        "eventid": "1550421",
+        "name": "Earthquake off the east coast of Honshu, Japan",
+        "country": "Japan",
+        "fromdate": "2026-07-07T01:28:45",
+        "todate": "2026-07-07T01:28:45",
+        "datemodified": "2026-07-07T02:06:45",
+        "alertlevel": "Orange",
+        "episodealertlevel": "Orange",
+        "alertscore": 1.5,
+        "glide": "",
+        "source": "NEIC",
+        "istemporary": "false",
+        "url": { "report": "https://www.gdacs.org/report.aspx?eventid=1550421&eventtype=EQ" }
+      }
+    }
+  ]
+}
